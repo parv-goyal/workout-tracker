@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en" class="bg-gray-100">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Workout Tracker</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+  <body class="max-w-3xl mx-auto p-4">
+    <h1 class="text-3xl font-bold mb-4">🏋️ Workout Tracker</h1>
+
+    <!-- Workout Form -->
+    <form id="workoutForm" class="bg-white p-4 rounded shadow space-y-4">
+      <div>
+        <label class="block">Muscle Group</label>
+        <select id="muscleGroup" class="w-full border p-2 rounded"></select>
+      </div>
+
+      <div>
+        <label class="block">Exercise</label>
+        <select id="exercise" class="w-full border p-2 rounded"></select>
+        <input
+          type="text"
+          id="customExercise"
+          class="hidden w-full mt-2 p-2 border rounded"
+          placeholder="Enter custom exercise"
+        />
+      </div>
+
+      <!-- Sets -->
+      <div class="grid grid-cols-2 gap-2">
+        <div>
+          <label>Set 1 Reps</label
+          ><input
+            type="number"
+            id="set1Reps"
+            class="w-full border p-2 rounded"
+          />
+        </div>
+        <div>
+          <label>Set 1 Weight</label
+          ><input
+            type="number"
+            id="set1Weight"
+            class="w-full border p-2 rounded"
+          />
+        </div>
+
+        <div>
+          <label>Set 2 Reps</label
+          ><input
+            type="number"
+            id="set2Reps"
+            class="w-full border p-2 rounded"
+          />
+        </div>
+        <div>
+          <label>Set 2 Weight</label
+          ><input
+            type="number"
+            id="set2Weight"
+            class="w-full border p-2 rounded"
+          />
+        </div>
+
+        <div>
+          <label>Set 3 Reps</label
+          ><input
+            type="number"
+            id="set3Reps"
+            class="w-full border p-2 rounded"
+          />
+        </div>
+        <div>
+          <label>Set 3 Weight</label
+          ><input
+            type="number"
+            id="set3Weight"
+            class="w-full border p-2 rounded"
+          />
+        </div>
+
+        <div>
+          <label>Set 4 Reps (optional)</label
+          ><input
+            type="number"
+            id="set4Reps"
+            class="w-full border p-2 rounded"
+          />
+        </div>
+        <div>
+          <label>Set 4 Weight (optional)</label
+          ><input
+            type="number"
+            id="set4Weight"
+            class="w-full border p-2 rounded"
+          />
+        </div>
+      </div>
+
+      <div>
+        <label class="block">Notes</label>
+        <textarea id="notes" class="w-full border p-2 rounded"></textarea>
+      </div>
+
+      <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded">
+        Submit Workout
+      </button>
+    </form>
+
+    <!-- Workout History -->
+    <section id="historySection" class="mt-10">
+      <h2 class="text-2xl font-bold mb-2">📜 Workout History</h2>
+      <table class="w-full text-sm table-auto border">
+        <thead>
+          <tr class="bg-gray-200">
+            <th class="p-2">Date</th>
+            <th>Muscle</th>
+            <th>Exercise</th>
+            <th>Sets</th>
+            <th>Notes</th>
+            <th>Status</th>
+            <th>Edit</th>
+            <th>Delete</th>
+          </tr>
+        </thead>
+        <tbody id="historyTable"></tbody>
+      </table>
+    </section>
+
+    <!-- Progress Chart -->
+    <section class="mt-10">
+      <h2 class="text-2xl font-bold mb-2">📈 Progress Charts</h2>
+      <select
+        id="chartExerciseSelector"
+        class="w-full border p-2 mb-4 rounded"
+      ></select>
+      <canvas id="progressChart" class="bg-white rounded shadow p-2"></canvas>
+    </section>
+
+    <script src="app.js"></script>
+  </body>
+</html>
+<!-- Deployment successfully updated.
+Version 1 on Apr 18, 2025, 1:34 PM
+Deployment ID
+AKfycbwaXveNcyDoqfH6O0zuUK9brNGpBF2iXdsr2Ps5K9aMqdfwRzJBu9Cx-2j4HlkkpVPB
+Web app
+URL
+https://script.google.com/macros/s/AKfycbwaXveNcyDoqfH6O0zuUK9brNGpBF2iXdsr2Ps5K9aMqdfwRzJBu9Cx-2j4HlkkpVPB/exec -->
+<!-- https://script.google.com/macros/s/AKfycbwaXveNcyDoqfH6O0zuUK9brNGpBF2iXdsr2Ps5K9aMqdfwRzJBu9Cx-2j4HlkkpVPB/exec -->
