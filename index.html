@@ -19,7 +19,9 @@
 
       <div>
         <label class="block">Exercise</label>
-        <select id="exercise" class="w-full border p-2 rounded"></select>
+        <select id="exercise" class="w-full border p-2 rounded">
+          <option value="" disabled selected>Select Exercise</option>
+        </select>
         <input
           type="text"
           id="customExercise"
@@ -121,6 +123,21 @@
       </button>
     </form>
 
+    <!-- Daily / Weekly Volume Summary -->
+    <section class="mt-10">
+      <h2 class="text-2xl font-bold mb-2">📊 Volume Summary</h2>
+      <div class="bg-white p-4 rounded shadow space-y-2">
+        <p>
+          <strong>Today's Total Volume:</strong> <span id="todayVolume">0</span>
+        </p>
+        <p>
+          <strong>This Week's Total Volume:</strong>
+          <span id="weekVolume">0</span>
+        </p>
+        <p class="text-green-600 font-bold" id="prVolumeMsg"></p>
+      </div>
+    </section>
+
     <!-- Workout History -->
     <section id="historySection" class="mt-10">
       <h2 class="text-2xl font-bold mb-2">📜 Workout History</h2>
@@ -131,6 +148,7 @@
             <th>Muscle</th>
             <th>Exercise</th>
             <th>Sets</th>
+            <th>Volume</th>
             <th>Notes</th>
             <th>Status</th>
             <th>Edit</th>
@@ -154,6 +172,7 @@
     <script src="app.js"></script>
   </body>
 </html>
+
 <!-- Deployment successfully updated.
 Version 1 on Apr 18, 2025, 1:34 PM
 Deployment ID
