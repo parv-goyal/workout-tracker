@@ -39,6 +39,7 @@ const muscleGroups = {
   ]
 };
 
+
 let workoutData = JSON.parse(localStorage.getItem('workouts')) || [];
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -52,10 +53,18 @@ document.addEventListener('DOMContentLoaded', () => {
   let chart;
 
   // Populate muscle groups
+  const defaultOption = new Option('Select Muscle Group', '', true, true);
+  defaultOption.disabled = true;
+  muscleGroupSelect.add(defaultOption);
   Object.keys(muscleGroups).forEach(group => {
     const option = new Option(group, group);
     muscleGroupSelect.add(option);
   });
+
+  chartSelector.innerHTML = '';
+  const defaultChartOption = new Option('Select Exercise', '', true, true);
+  defaultChartOption.disabled = true;
+  chartSelector.add(defaultChartOption);
 
   muscleGroupSelect.addEventListener('change', () => {
     updateExerciseDropdown(muscleGroupSelect.value);
@@ -96,6 +105,7 @@ document.addEventListener('DOMContentLoaded', () => {
     historyTable.innerHTML = '';
     workoutData.forEach((entry, idx) => {
       const row = historyTable.insertRow();
+      row.classList.add('animate-fade-in');
       row.innerHTML = `
         <td class="p-1">${new Date(entry.timestamp).toLocaleString()}</td>
         <td>${entry.muscle}</td>
@@ -114,10 +124,15 @@ document.addEventListener('DOMContentLoaded', () => {
   function updateChartSelector() {
     const uniqueExercises = [...new Set(workoutData.map(w => w.exercise))];
     chartSelector.innerHTML = '';
+    const defaultChartOption = new Option('Select Exercise', '', true, true);
+    defaultChartOption.disabled = true;
+    chartSelector.add(defaultChartOption);
     uniqueExercises.forEach(ex => chartSelector.add(new Option(ex, ex)));
   }
 
   chartSelector.addEventListener('change', () => {
+    if (!chartSelector.value) return;
+
     const data = workoutData
       .filter(w => w.exercise === chartSelector.value)
       .sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
@@ -177,7 +192,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   async function sendToSheet(entry) {
     const formBody = `data=${encodeURIComponent(JSON.stringify(entry))}`;
-    
+
     try {
       const response = await fetch(SHEET_API_URL, {
         method: 'POST',
@@ -186,17 +201,16 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         body: formBody
       });
-  
+
       const result = await response.json();
       console.log("✅ Synced with Google Sheet:", result);
       return result;
-  
+
     } catch (err) {
       console.error("❌ Failed to sync with Google Sheet:", err);
       return { status: 'error', message: err.message };
     }
   }
-  
 
   function syncPending() {
     workoutData.forEach(async (entry, idx) => {
@@ -241,3 +255,205 @@ document.addEventListener('DOMContentLoaded', () => {
   renderHistory();
   syncPending();
 });
+// let workoutData = JSON.parse(localStorage.getItem('workouts')) || [];
+
+// document.addEventListener('DOMContentLoaded', () => {
+//   const muscleGroupSelect = document.getElementById('muscleGroup');
+//   const exerciseSelect = document.getElementById('exercise');
+//   const customExercise = document.getElementById('customExercise');
+//   const workoutForm = document.getElementById('workoutForm');
+//   const historyTable = document.getElementById('historyTable');
+//   const chartSelector = document.getElementById('chartExerciseSelector');
+//   const chartCanvas = document.getElementById('progressChart');
+//   let chart;
+
+//   // Populate muscle groups
+//   Object.keys(muscleGroups).forEach(group => {
+//     const option = new Option(group, group);
+//     muscleGroupSelect.add(option);
+//   });
+
+//   muscleGroupSelect.addEventListener('change', () => {
+//     updateExerciseDropdown(muscleGroupSelect.value);
+//   });
+
+//   exerciseSelect.addEventListener('change', () => {
+//     customExercise.classList.toggle('hidden', exerciseSelect.value !== 'Other…');
+//   });
+
+//   function updateExerciseDropdown(group) {
+//     exerciseSelect.innerHTML = '';
+//     muscleGroups[group].forEach(ex => {
+//       exerciseSelect.add(new Option(ex, ex));
+//     });
+//     customExercise.classList.add('hidden');
+//   }
+
+//   function saveWorkouts() {
+//     localStorage.setItem('workouts', JSON.stringify(workoutData));
+//   }
+
+//   function getExerciseName() {
+//     return exerciseSelect.value === 'Other…' ? customExercise.value : exerciseSelect.value;
+//   }
+
+//   function formatSets(sets) {
+//     return sets.map(([r, w]) => `${r}x${w}`).join(', ');
+//   }
+
+//   function isPR(entry) {
+//     const weights = workoutData
+//       .filter(w => w.exercise === entry.exercise)
+//       .map(w => Math.max(...w.sets.map(s => Number(s[1] || 0))));
+//     return Math.max(...weights) === Math.max(...entry.sets.map(s => Number(s[1] || 0)));
+//   }
+
+//   function renderHistory() {
+//     historyTable.innerHTML = '';
+//     workoutData.forEach((entry, idx) => {
+//       const row = historyTable.insertRow();
+//       row.innerHTML = `
+//         <td class="p-1">${new Date(entry.timestamp).toLocaleString()}</td>
+//         <td>${entry.muscle}</td>
+//         <td class="${isPR(entry) ? 'text-green-600 font-bold' : ''}">${entry.exercise}</td>
+//         <td>${formatSets(entry.sets)}</td>
+//         <td>${entry.notes}</td>
+//         <td>${entry.synced ? '✅ Synced' : '<span class="text-yellow-500">Pending</span>'}</td>
+//         <td><button class="text-blue-500" onclick="editEntry(${idx})">✏️</button></td>
+//         <td><button class="text-red-500" onclick="deleteEntry(${idx})">🗑️</button></td>
+//       `;
+//     });
+
+//     updateChartSelector();
+//   }
+
+//   function updateChartSelector() {
+//     const uniqueExercises = [...new Set(workoutData.map(w => w.exercise))];
+//     chartSelector.innerHTML = '';
+//     uniqueExercises.forEach(ex => chartSelector.add(new Option(ex, ex)));
+//   }
+
+//   chartSelector.addEventListener('change', () => {
+//     const data = workoutData
+//       .filter(w => w.exercise === chartSelector.value)
+//       .sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
+
+//     const labels = data.map(d => new Date(d.timestamp).toLocaleDateString());
+//     const weights = data.map(d => Math.max(...d.sets.map(s => Number(s[1]))));
+
+//     if (chart) chart.destroy();
+//     chart = new Chart(chartCanvas, {
+//       type: 'line',
+//       data: {
+//         labels,
+//         datasets: [{
+//           label: chartSelector.value,
+//           data: weights,
+//           borderColor: 'green',
+//           fill: false,
+//           tension: 0.2
+//         }]
+//       },
+//       options: { responsive: true }
+//     });
+//   });
+
+//   workoutForm.addEventListener('submit', async e => {
+//     e.preventDefault();
+
+//     const entry = {
+//       timestamp: new Date().toISOString(),
+//       muscle: muscleGroupSelect.value,
+//       exercise: getExerciseName(),
+//       sets: [
+//         [set1Reps.value, set1Weight.value],
+//         [set2Reps.value, set2Weight.value],
+//         [set3Reps.value, set3Weight.value],
+//         [set4Reps.value, set4Weight.value]
+//       ],
+//       notes: notes.value,
+//       synced: false
+//     };
+
+//     workoutData.push(entry);
+//     saveWorkouts();
+//     renderHistory();
+//     workoutForm.reset();
+//     window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+
+//     try {
+//       await sendToSheet(entry);
+//       entry.synced = true;
+//       saveWorkouts();
+//       renderHistory();
+//     } catch {
+//       console.warn('Offline or sheet sync error');
+//     }
+//   });
+
+//   async function sendToSheet(entry) {
+//     const formBody = `data=${encodeURIComponent(JSON.stringify(entry))}`;
+    
+//     try {
+//       const response = await fetch(SHEET_API_URL, {
+//         method: 'POST',
+//         headers: {
+//           'Content-Type': 'application/x-www-form-urlencoded'
+//         },
+//         body: formBody
+//       });
+  
+//       const result = await response.json();
+//       console.log("✅ Synced with Google Sheet:", result);
+//       return result;
+  
+//     } catch (err) {
+//       console.error("❌ Failed to sync with Google Sheet:", err);
+//       return { status: 'error', message: err.message };
+//     }
+//   }
+  
+
+//   function syncPending() {
+//     workoutData.forEach(async (entry, idx) => {
+//       if (!entry.synced) {
+//         try {
+//           await sendToSheet(entry);
+//           entry.synced = true;
+//           saveWorkouts();
+//           renderHistory();
+//         } catch {}
+//       }
+//     });
+//   }
+
+//   window.editEntry = function (idx) {
+//     const entry = workoutData[idx];
+//     muscleGroupSelect.value = entry.muscle;
+//     updateExerciseDropdown(entry.muscle);
+//     if (muscleGroups[entry.muscle].includes(entry.exercise)) {
+//       exerciseSelect.value = entry.exercise;
+//     } else {
+//       exerciseSelect.value = 'Other…';
+//       customExercise.value = entry.exercise;
+//       customExercise.classList.remove('hidden');
+//     }
+//     [set1Reps.value, set1Weight.value] = entry.sets[0];
+//     [set2Reps.value, set2Weight.value] = entry.sets[1];
+//     [set3Reps.value, set3Weight.value] = entry.sets[2];
+//     [set4Reps.value, set4Weight.value] = entry.sets[3];
+//     notes.value = entry.notes;
+//     workoutData.splice(idx, 1);
+//     saveWorkouts();
+//     renderHistory();
+//   }
+
+//   window.deleteEntry = function (idx) {
+//     workoutData.splice(idx, 1);
+//     saveWorkouts();
+//     renderHistory();
+//   }
+
+//   renderHistory();
+//   syncPending();
+// });
