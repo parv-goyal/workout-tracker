@@ -229,7 +229,8 @@ document.addEventListener('DOMContentLoaded', () => {
       synced: false
     };
 
-    workoutData.push(entry);
+    // workoutData.push(entry);
+    workoutData.unshift(entry);
     saveWorkouts();
     renderHistory();
     workoutForm.reset();

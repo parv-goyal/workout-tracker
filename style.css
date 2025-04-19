@@ -1,0 +1,32 @@
+/* styles.css */
+
+/* Container for the scrollable table */
+.table-wrapper {
+    max-height: 400px; /* Set the max height of the table */
+    overflow-y: auto;  /* Enable vertical scrolling */
+    -webkit-overflow-scrolling: touch; /* For smoother scrolling on iOS */
+    scroll-behavior: smooth; /* Smooth scrolling */
+    margin-bottom: 1rem; /* Add some space at the bottom */
+  }
+  
+  /* Custom sleek scrollbar for the table wrapper */
+  .table-wrapper::-webkit-scrollbar {
+    width: 2px; /* Ultra-thin scrollbar width */
+    background-color: transparent; /* Transparent background */
+  }
+  
+  .table-wrapper::-webkit-scrollbar-thumb {
+    background-color: #e5e7eb; /* Light gray color similar to bg-gray-200 */
+    border-radius: 6px; /* Rounded corners for the thumb */
+    border: 1px solid rgba(0, 0, 0, 0.1); /* Optional light border around the thumb */
+  }
+  
+  .table-wrapper::-webkit-scrollbar-thumb:hover {
+    background-color: #d1d5db; /* Slightly darker gray when hovered */
+  }
+  
+  .table-wrapper::-webkit-scrollbar-track {
+    background: transparent; /* Keep track background transparent */
+    border-radius: 6px; /* Rounded track */
+  }
+  

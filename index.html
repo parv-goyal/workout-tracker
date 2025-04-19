@@ -6,6 +6,7 @@
     <title>Workout Tracker</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body class="max-w-3xl mx-auto p-4">
     <h1 class="text-3xl font-bold mb-4">🏋️ Workout Tracker</h1>
@@ -141,22 +142,25 @@
     <!-- Workout History -->
     <section id="historySection" class="mt-10">
       <h2 class="text-2xl font-bold mb-2">📜 Workout History</h2>
-      <table class="w-full text-sm table-auto border">
-        <thead>
-          <tr class="bg-gray-200">
-            <th class="p-2">Date</th>
-            <th>Muscle</th>
-            <th>Exercise</th>
-            <th>Sets</th>
-            <th>Volume</th>
-            <th>Notes</th>
-            <th>Status</th>
-            <th>Edit</th>
-            <th>Delete</th>
-          </tr>
-        </thead>
-        <tbody id="historyTable"></tbody>
-      </table>
+      <div class="table-wrapper">
+        <!-- Wrap the table in this div -->
+        <table class="w-full text-sm table-auto border">
+          <thead>
+            <tr class="bg-gray-200">
+              <th class="p-2">Date</th>
+              <th>Muscle</th>
+              <th>Exercise</th>
+              <th>Sets</th>
+              <th>Volume</th>
+              <th>Notes</th>
+              <th>Status</th>
+              <th>Edit</th>
+              <th>Delete</th>
+            </tr>
+          </thead>
+          <tbody id="historyTable"></tbody>
+        </table>
+      </div>
     </section>
 
     <!-- Progress Chart -->
