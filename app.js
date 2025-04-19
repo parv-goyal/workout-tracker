@@ -28,7 +28,7 @@ const muscleGroups = {
     "Single Bench Dip", "Cable Kickbacks", "Other…"
   ],
   Chest: [
-    "Bench Press", "Incline Bench Press", "Decline Bench Press", "Incline Dumbbell Press", "Decline Dumbbell Press",
+    "Bench Press", "Incline Bench Press", "Decline Bench Press", "Incline Dumbbell Press", "Decline Dumbbell Press", "Dumbbell Press",
     "Dumbbell Chest Fly", "Standing Cable Fly", "Decline Cable Fly", "High Cable Fly", "Machine Chest Fly", "Pushup",
     "Dumbbell Pullover", "Close Grip Dumbbell Press", "Other…"
   ],
@@ -52,7 +52,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const chartCanvas = document.getElementById('progressChart');
   let chart;
 
-  // Populate muscle groups
   const defaultOption = new Option('Select Muscle Group', '', true, true);
   defaultOption.disabled = true;
   muscleGroupSelect.add(defaultOption);
@@ -76,6 +75,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function updateExerciseDropdown(group) {
     exerciseSelect.innerHTML = '';
+    const defaultExerciseOption = new Option('Select Exercise', '', true, true);
+    defaultExerciseOption.disabled = true;
+    exerciseSelect.add(defaultExerciseOption);
     muscleGroups[group].forEach(ex => {
       exerciseSelect.add(new Option(ex, ex));
     });
@@ -138,7 +140,7 @@ document.addEventListener('DOMContentLoaded', () => {
       .sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
 
     const labels = data.map(d => new Date(d.timestamp).toLocaleDateString());
-    const weights = data.map(d => Math.max(...d.sets.map(s => Number(s[1]))));
+    const weights = data.map(d => Math.max(...d.sets.map(s => parseFloat(s[1]))));
 
     if (chart) chart.destroy();
     chart = new Chart(chartCanvas, {
