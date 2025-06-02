@@ -10,7 +10,7 @@ const muscleGroups = {
   Shoulders: [
     "Lateral Raise", "Seated Dumbbell Press", "Overhead Press", "Standing Dumbbell Shoulder Press", "Seated Arnold Press",
     "Seated Bent Over Dumbbell Reverse Fly", "Cable Face Pull", "Machine Reverse Fly", "Standing Dumbbell Front Raise",
-    "Machine Shoulder Press", "Cable Upright Row", "Weight Plate Front Raise", "Standing Arnold Press", "Dumbbell 6 Ways", "Other…"
+    "Machine Shoulder Press", "Cable Upright Row", "Weight Plate Front Raise", "Standing Arnold Press", "Dumbbell 6 Ways", "Front Raise", "Shrugs", "Other…"
   ],
   Biceps: [
     "Hammer Curl", "Dumbbell Curl", "Incline Dumbbell Curl", "EZ Bar Preacher Curl", "Barbell Preacher Curl",
@@ -22,10 +22,10 @@ const muscleGroups = {
     "Seated Neutral Grip Dumbbell Wrist Curl", "Reverse Grip Machine", "Neutral Grip Machine", "Other…"
   ],
   Triceps: [
-    "Straight Bar Tricep Extension", "Seated Dumbbell Tricep Extension", "Lying Dumbbell Extension", "EZ Bar Skullcrusher",
+    "Straight Bar Tricep Extension", "Seated Dumbbell Tricep Extension", "Lying Dumbbell Extension", "Skullcrusher",
     "Rope Tricep Extension", "Bent Over Dumbbell Tricep Kickback", "One-Arm Standing Dumbbell Extension",
     "Two Arm Standing Dumbbell Extension", "High Pulley Overhead Tricep Extension", "Low Pulley Overhead Tricep Extension",
-    "Single Bench Dip", "Cable Kickbacks", "Other…"
+    "Single Bench Dip", "Cable Kickbacks", "Single Arm Dumbbell Overhead", "Dumbbell Overhead", "Triceps Pushdown", "Other…"
   ],
   Chest: [
     "Bench Press", "Incline Bench Press", "Decline Bench Press", "Incline Dumbbell Press", "Decline Dumbbell Press", "Dumbbell Press",
@@ -35,7 +35,7 @@ const muscleGroups = {
   Back: [
     "Lat Pull Down", "Wide Grip Pull Up", "V-Bar Pull Down", "Underhand Close Grip Lateral Pulldown",
     "Behind Neck Lat Pull Down", "Deadlift", "Seated Cable Row", "Machine T-Bar Row", "Dumbbell Row", "T-Bar Row",
-    "Machine Row", "Other…"
+    "Machine Row", "Upper Back Cable Row", "Reverse Grip Lat Pull Down", "Other…"
   ]
 };
 let workoutData = JSON.parse(localStorage.getItem('workouts')) || [];
